@@ -569,7 +569,7 @@ impl AppState {
             | NodeEvent::Mic { .. }
             | NodeEvent::PcAudioFrame { .. }
             | NodeEvent::CameraCaptureRequested { .. }
-            | NodeEvent::CameraCaptureCancelled { .. }
+            | NodeEvent::CameraCaptureCancelled { .. } => Changes::NONE,
             NodeEvent::CameraCaptureReceived { .. } => Changes::TIMELINE,
             NodeEvent::ClipboardHistoryChanged => Changes::CLIPBOARD | Changes::TIMELINE,
             NodeEvent::TimelineChanged => Changes::TIMELINE,
