@@ -3,7 +3,7 @@
 .SYNOPSIS
   The update every user takes: installs the last published release from
   GitHub (checked against its SHA-256 sums), runs it once on a data folder,
-  then installs this build over it silently, as the update task does, and
+  then installs this build over it silently, and
   checks the new version runs on the same data and quits cleanly. For CI
   (needs admin; changes this PC), not for everyday use.
 #>
@@ -98,7 +98,7 @@ Check "$newVersion replaced it" ((DisplayVersion) -eq $newVersion)
 $scheduler = New-Object -ComObject Schedule.Service
 $scheduler.Connect()
 $task = try { $scheduler.GetFolder('\').GetTask('Nectarlink Update') } catch { $null }
-Check "the update task is there after the update" ($null -ne $task -and $task.Definition.Actions.Item(1).Path.Trim('"') -eq $exe)
+Check "no update task is left after the update (updater removed)" ($null -eq $task)
 # Windows' camera service can hold the webcam DLL open; the update must still
 # put the new one in place rather than skip it.
 $staged = Join-Path (Split-Path $Setup) 'Nectarlink'
