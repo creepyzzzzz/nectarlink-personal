@@ -25,7 +25,7 @@ if (-not $Setup) {
     $Setup = (Get-ChildItem (Join-Path $PSScriptRoot '..\target\package\*-x64-setup.exe') | Select-Object -First 1).FullName
 }
 if (-not $Setup -or -not (Test-Path $Setup)) { throw "no x64 setup installer to test under target\package" }
-if ($Setup -notmatch 'Nectarlink-(.+)-x64-setup\.exe$') { throw "can't read the version from $Setup" }
+if ((Split-Path $Setup -Leaf) -notmatch '^Nectarlink-(.+)-x64-setup\.exe$') { throw "can't read the version from $Setup" }
 $newVersion = $Matches[1]
 
 $api = 'https://api.github.com/repos/thtbee/nectarlink/releases'
